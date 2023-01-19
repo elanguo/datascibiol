@@ -76,6 +76,10 @@ fish
 select(fish, fish_id:length)
 ```
 
+```{r}
+select(fish, "lakeid", "annnumber")
+```
+
 The - operator is useful in select. It allows us to select everything except the specified variables.
 ```{r}
 select(fish, -fish_id, -annnumber, -length, -radii_length_mm)
@@ -142,42 +146,55 @@ mammals <- readr::read_csv("data/mammal_lifehistories_v2.csv")
 
 1. Use one or more of your favorite functions to assess the structure of the data.  
 ```{r}
-
+str(mammals)
 ```
 
 2. Are there any NAs? Are you sure? Try taking an average of `max. life` as a test.  
 ```{r}
-
+anyNA(mammals)
+mean(mammals$`max. life`)
+#fuck -999.00
 ```
 
 3. What are the names of the columns in the `mammals` data?
 ```{r}
-
+names(mammals)
 ```
 
 4. Rename any columns that have capitol letters or punctuation issues.  
 ```{r}
+mammals_new <- rename(mammals,
+                      genus = "Genus",
+                      afr = "AFR",
+                      max_life = "max. life",
+                      litter_size = "litter size",
+                      litters_year = "litters/year",
+                      wean_mass = "wean mass")
+mammals_new
+```
 
+```{r}
+select_all(mammals, ~str_replace(., " ", "_"))
 ```
 
 5. We are only interested in the variables `genus`, `species`, and `mass`. Use `select()` to build a new dataframe `mass` focused on these variables.
 ```{r}
-
+select(mammals_new, "genus", "species", "mass")
 ```
 
 6. What if we only wanted to exclude `order` and `family`? Use the `-` operator to make the code efficient.
 ```{r}
-
+select(mammals_new, -"order", -"family")
 ```
 
 7. Select the columns that include "mass" as part of the name.  
 ```{r}
-
+select(mammals_new, contains("mass"))
 ```
 
 8. Select all of the columns that are of class `character`.  
 ```{r}
-
+select_if(mammals_new, is.character)
 ```
 
 ## Other
