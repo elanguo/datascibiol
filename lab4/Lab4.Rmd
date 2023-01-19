@@ -1,0 +1,35 @@
+---
+title: "Lab_4"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library("tidyverse")
+library("palmerpenguins")
+```
+
+```{r}
+penguins <- penguins
+```
+
+```{r}
+dim(penguins)
+glimpse(penguins)
+```
+
+```{r}
+names(penguins)
+```
+
+```{r}
+table(penguins$island)
+```
+
+```{r}
+mean(penguins$body_mass_g, na.rm=T)
+```
